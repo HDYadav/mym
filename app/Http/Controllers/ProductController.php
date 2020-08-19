@@ -48,9 +48,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-'name' => 'required',
-'detail' => 'required',
-]);
+            'name' => 'required',
+            'detail' => 'required',
+            ]);
         Product::create($request->all());
         return redirect()->route('products.index')
 ->with('success', 'Product created successfully.');
@@ -85,12 +85,12 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         request()->validate([
-    'name' => 'required',
-    'detail' => 'required',
-    ]);
+        'name' => 'required',
+        'detail' => 'required',
+        ]);
         $product->update($request->all());
         return redirect()->route('products.index')
-    ->with('success', 'Product updated successfully');
+        ->with('success', 'Product updated successfully');
     }
     /**
     * Remove the specified resource from storage.
@@ -102,6 +102,6 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index')
-->with('success', 'Product deleted successfully');
+        ->with('success', 'Product deleted successfully');
     }
 }
