@@ -1,27 +1,18 @@
 <?php
-if (!function_exists('human_file_size')) {
-    /**
-     * Returns a human readable file size
-     *
-     * @param integer $bytes
-     * Bytes contains the size of the bytes to convert
-     *
-     * @param integer $decimals
-     * Number of decimal places to be returned
-     *
-     * @return string a string in human readable format
-     *
-     * */
-    function human_file_size($bytes, $decimals = 2)
+
+namespace App\Helpers;
+
+class Helper
+{
+    public function human_file_size($bytes, $decimals = 2)
     {
         $sz = 'BKMGTPE';
         $factor = (int)floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . $sz[$factor];
     }
-}
-
-if (!function_exists('Gotra')) {
-    function Gotra()
+ 
+ 
+    public static function Gotra()
     {
         return  $sl=array(
              '' => '--Select Gotra--',
@@ -31,4 +22,67 @@ if (!function_exists('Gotra')) {
               '4' => 'Aitrichansiya'
         );
     }
+ 
+
+
+ 
+    public static function Child()
+    {
+        return array(
+              '' => '--Select--',
+              '0' => 'Zero',
+              '1' => 'One',
+              '2' => 'Two',
+              '3' => 'Three',
+              '4' => 'Four'
+        );
+    }
+
+    public static function edu()
+    {
+        return array(
+             '' => '--Select qualification--',
+              '1' => 'Graduate',
+              '2' => 'PG',
+              '3' => 'MBA',
+              '4' => 'MCA',
+              '5' => 'CA',
+              '6' => 'BE'
+        );
+    }
+
+    public static function bloodGroup()
+    {
+        return  array(
+             '' => '--Select blood group--',
+              '1' => 'A',
+              '2' => 'A+',
+              '3' => 'B',
+              '4' => 'B+',
+              '5' => 'O',
+              '6' => 'O+'
+        );
+    }
+
+
+    public static function prefix()
+    {
+        return  array(
+             '' => '--Select prefix--',
+              '1' => 'Mr.',
+              '2' => 'Miss'
+        );
+    }
+
+      public static function sucess($msg_code,$data=[])
+        {  
+            $msg='records sucessfully inserted';
+            return ['status'=>'sucess','msg_code'=>$msg_code,'msg'=>$msg,'data'=>$data];
+        }
+
+        public static function failed($msg_code,$data=[])
+        {
+            $msg ="Failed"; 
+            return ['status'=>'failed','msg_code'=>$msg_code,'msg'=>$msg,'data'=>$data];
+        } 
 }

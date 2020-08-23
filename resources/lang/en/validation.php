@@ -118,6 +118,7 @@ return [
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
     
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -134,6 +135,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+    ],
+
+    'profile' => [
+        'mym_201' =>'Profile created sucessfully',
+        'mym_202' =>'Input valdation not proper'
     ],
 
     /*

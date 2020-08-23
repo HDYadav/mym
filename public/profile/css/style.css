@@ -21,9 +21,8 @@ body {
     font-size: 14px;
     margin: 0;
     color: #999;
-    background: url("../images/form-wizard-bg.jpg") no-repeat center center;
-    height: 100vh;
-    background-size: cover;
+    background-color: #e5e5e5 !important;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,9 +85,10 @@ img {
 
 .wrapper {
     width: 1000px;
-    height: 620px;
+    height: auto;
     padding: 63px 90px 0;
     background: #fff;
+    margin-bottom: 40px;
 }
 
 .wizard {
@@ -527,3 +527,58 @@ table.cart .product-remove a {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* Parse Validation errors */
+
+.box {
+    width: 100%;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 16px;
+    margin: 0 auto;
+}
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+    color: #468847;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border: 1px solid #eed3d7;
+}
+
+.parsley-errors-list {
+    margin: 2px 0 3px;
+    padding: 0;
+    list-style-type: none;
+    font-size: 0.9em;
+    line-height: 0.9em;
+    opacity: 0;
+
+    transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+}
+
+.parsley-errors-list.filled {
+    opacity: 1;
+}
+
+.parsley-type,
+.parsley-required,
+.parsley-equalto,
+.parsley-pattern,
+.parsley-minlength,
+.parsley-maxlength,
+.parsley-length {
+    color: #ff0000;
+}

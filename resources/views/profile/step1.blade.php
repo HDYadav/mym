@@ -1,9 +1,9 @@
 @extends('profile.layouts.app')
+@section('title', 'Profile')
 @section('content')
- 
-        		<!-- SECTION 1 -->
+  <!-- SECTION 1 -->
 <h4></h4> 
-
+ 
 <section> 
 
   <h3>User KYC:</h3> 
@@ -14,108 +14,154 @@
   </div>
 </div>
 
+@if ($errors->any())
+<div class="alert alert-danger">
+<strong>Whoops!</strong> There were some problems with your input.<br><br>
+<ul>
+@foreach ($errors->all() as $error)
+<li>{{ $error }}</li>
+@endforeach
+</ul>
+</div>
+@endif
+
  
-  <div class="alert alert-danger" style="display:none">  </div>
-    {{ Form::open(array('url' => 'step2','method'=>'POST','id'=>'step1Frm')) }}
+  <div class="alert alert-danger" style="display:none" id="errors">  </div>
+    {{ Form::open(array('url' => '#','method'=>'POST','id'=>'step1Frm')) }}
     @csrf
     <div class="form-row">
         <div class="form-holder">
-        
-            <i class="zmdi zmdi-account"></i>
-            <input type="text" name="fullname" id="fullname" class="form-control  @error('fullname') is-invalid @enderror" placeholder="Name" value="{{ old('fullname') }}" autocomplete="fullname" autofocus>
-            
-            <small class="text-danger">{{ $errors->first('fullname') }}</small>
-<div id="error" class="mt-3 text-danger"></div>
-        </div>
-       <div class="form-holder">
-            <i class="zmdi zmdi-phone"></i>
-            <input type="text" name="phone" class="form-control  @error('phone') is-invalid @enderror" placeholder="Phone No"  value="{{ old('phone') }}" autocomplete="phone" autofocus>
-            @error('phone')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
-   
-        
-        <div class="form-row">
-           
-            <div class="form-holder"> 
-             {{Form::label('gender', 'Gender')}}  
-             <br>
-             {{Form::label('gender', 'Male')}}  
-             {{Form::radio('gender', '0')}}
-             {{Form::label('gender', 'Female')}} 
-             {{Form::radio('gender', '1')}} 
+             {{Form::label('name', 'Name')}} 
+            <input type="text" name="name" id="name" class="form-control" value=""  placeholder="Enter your name" > 
              
         </div>
-        <div class="form-holder">
-        {{Form::label('dob', 'Date of Birth')}}
-        {{ Form::date('dob', \Carbon\Carbon::now(), ['class' => 'form-control'])}} 
-        </div>
-        </div>
-    
- <div class="form-row">
-      <div class="form-holder">
-        {{Form::label('gotra', 'Gotra')}}
-        {{Form::select('gotra', Gotra(), null, ['class' => 'form-control'])}}            
-        </div>
-    <div class="form-holder">
-       <!-- Marital Status -->
-        {{Form::label('mstatus', 'Marital Status')}}
-        <br>
-        {{Form::label('mstatus', 'Yes')}}
-        {{Form::radio('mstatus', '1', false,['onchange' => 'getValue(this.value)'])}}
-        {{Form::label('mstatus', 'No')}}
-        {{Form::radio('mstatus', '0', false,['onchange' => 'getValue(this.value)'])}}
+         <div class="form-holder">
+        {{Form::label('father', 'Father Name')}}  
+            <input type="text" name="father_name" value="father name" class="form-control" placeholder="Father Name"  value="{{ old('father_name') }}" required data-parsley-trigger="keyup" data-parsley-required-message="Please enter father name"> 
         </div> 
-
-        
-        </div>
- 
-<div  id="myDIV" style="display:none">
-  <div class="form-row">
-        <div class="form-holder"> 
-        {{Form::label('spouseName', 'Spouse Name')}}
-            <input type="text" name="spouseName" id="spouseName" class="form-control" placeholder="Spouse Name" maxlength="6"> 
-        </div>
-         <div class="form-holder">  
-         {{Form::label('spouseName', 'Spouse Blood Group')}}          
-            <input type="text" name="spouseBloodGroup" id="spouseBloodGroup" class="form-control" placeholder="Spouse's Blood Group" >
-        </div>
-         
     </div>
-</div>
+   <div class="form-row">
+       <div class="form-holder"> 
+         {{Form::label('phone', 'Phone No')}}  
+            <input type="text" name="phone_no" value="9572284955" class="form-control" placeholder="Phone No"  value="{{ old('phone_no') }}" required data-parsley-trigger="keyup"  data-parsley-pattern="^[\d\+\-\.\(\)\/\s]*$" data-parsley-maxlength='10' data-parsley-minlength='10' data-parsley-required-message="Please enter phone no"> 
+        </div>  
 
+        <div class="form-holder">
+                {{Form::label('dob', 'Date of Birth')}}
+                {{ Form::date('dob', \Carbon\Carbon::now(), ['class' => 'form-control'])}} 
+         </div>
 
+        <div class="form-holder"> 
+          {{Form::label('gender', 'Gender')}} 
+          <p>
+            Male: <input type="radio" name="gender" id="gender" value="Male" required="" data-parsley-required-message="Please chose gender">
+            Female: <input type="radio" name="gender" id="gender" value="Female" checked >
+          </p>    
+        </div>
+    </div>
+        
+        <div class="form-row">            
+             <div class="form-holder">
+                {{Form::label('marital_status', 'Marital Status')}}
+                <p>                
+                {{Form::label('marital_status', 'Yes')}}
+                {{Form::radio('marital_status', 'Yes', true)}}
+                {{Form::label('marital_status', 'No')}}
+                {{Form::radio('marital_status', 'No', false)}}
+                </p>
+            </div> 
+             <div class="form-holder">
+                {{Form::label('gotra', 'Gotra')}}
+                {{Form::select('gotra', Helper::Gotra(), 2, ['class' => 'form-control','required data-parsley-trigger'=>'keyup',' data-parsley-required-message'=>'Please select gotra'])}}            
+            </div>
+
+         <div class="form-holder"> 
+            {{Form::label('native', 'Native Place')}}  
+                <input type="text" name="native_place" id="native_place" class="form-control" placeholder="Native Place"  value="Hemjapur" > 
+        </div>
+
+            <div class="form-holder"> 
+                {{Form::label('Preferred Location', 'Preferred Location')}} 
+                <p>
+                Residence: <input type="radio" name="preferred_location" id="preferred_location"  value="Residence" required="" data-parsley-required-message="Please chose preferred location">
+                Office: <input type="radio" name="preferred_location" id="preferred_location" value="Office" checked >
+                </p> 
+            </div> 
+     </div>
+     
+<hr>
+  <Address>{{Form::label('address', 'Residential Address')}} </Address> 
     <div class="form-row">
-        <div class="form-holder">  
-            <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Pin code" maxlength="6"> 
+        <div class="form-holder"> 
+         {{Form::label('pincode', 'Pin Code')}} 
+            <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Pincode" required data-parsley-trigger="keyup"  data-parsley-pattern="^[\d\+\-\.\(\)\/\s]*$" data-parsley-maxlength='6' data-parsley-minlength='6' data-parsley-required-message="Please enter pincode"> 
         </div>
-         <div class="form-holder">            
-            <input type="text" name="state" id="state" class="form-control" placeholder="State" >
+         <div class="form-holder">    
+         {{Form::label('state', 'State')}}         
+            <input type="text" name="state" id="state" class="form-control" placeholder="State" required data-parsley-trigger="keyup" data-parsley-required-message="Please enter state name">
         </div>
-         
+          <div class="form-holder"> 
+     {{Form::label('city', 'City')}}           
+            <input type="text" name="city" id="city" class="form-control" placeholder="City" required data-parsley-trigger="keyup"  data-parsley-required-message="Please enter city name">
+        </div>
     </div>
 <div class="form-row">
-    <div class="form-holder">            
-            <input type="text" name="city" id="city" class="form-control" placeholder="City" >
+   
+        <div class="form-holder">  
+         {{Form::label('place', 'Post Office')}}  
+            <select id="post_office" name="post_office" class="form-control" required data-parsley-trigger="keyup"  data-parsley-required-message="Please select post office"> 
+            <option value=""> --Select-- </option>
+        </select>
+
+        </div> 
+
+        <div class="form-holder">  
+         {{Form::label('address', 'Address')}}  
+             
+ <textarea type="text" name="address" id="address" value="Hemjapur" class="form-control" placeholder="Address" required data-parsley-trigger="keyup" data-parsley-required-message="Please enter address"></textarea>
+        </div>  
+    </div> 
+ 
+ <!-- Official address  -->
+
+ <hr>
+  <Address>{{Form::label('address', 'Official Address')}} </Address> 
+    <div class="form-row">
+        <div class="form-holder"> 
+         {{Form::label('pincode', 'PinCode')}} 
+            <input type="text" name="off_pincode" id="off_pincode" class="form-control" placeholder="Pincode" required data-parsley-trigger="keyup"  data-parsley-pattern="^[\d\+\-\.\(\)\/\s]*$" data-parsley-maxlength='6' data-parsley-minlength='6' data-parsley-required-message="Please enter pincode"> 
         </div>
-        <div class="form-holder">   
-            <select id="place" name="place" class="form-control"> 
+         <div class="form-holder">    
+         {{Form::label('state', 'State')}}         
+            <input type="text" name="off_state" id="off_state" class="form-control" placeholder="State" required data-parsley-trigger="keyup" data-parsley-required-message="Please enter state name">
+        </div>
+          <div class="form-holder"> 
+     {{Form::label('city', 'City')}}           
+            <input type="text" name="off_city" id="off_city" class="form-control" placeholder="City" required data-parsley-trigger="keyup"  data-parsley-required-message="Please enter city name">
+        </div>
+    </div>
+<div class="form-row">
+   
+        <div class="form-holder">  
+         {{Form::label('place', 'Post Office')}}  
+            <select id="off_post_office" name="off_post_office" class="form-control" required data-parsley-trigger="keyup" data-parsley-required-message="Please select post office"> 
                 <option value=""> --Select-- </option>
         </select>
 
         </div> 
-    </div>
-     
+
+         <div class="form-holder">  
+           {{Form::label('address', 'Address')}}               
+            <textarea type="text" name="off_address" id="off_address" value="Delhi" class="form-control" placeholder="Address" required data-parsley-trigger="keyup" data-parsley-required-message="Please enter address"></textarea>
+         </div>  
+    </div> 
+<!-- End  -->
 
    <div class="actions clearfix">
         <ul role="menu" aria-label="Pagination">
             <li class="disabled" aria-disabled="true"></li>
                 <li aria-hidden="false" class="disabled" aria-disabled="true">  
-                    <button type="submit" name="submit" id="submit" role="menuitem">Next</button>
+                    <button type="submit" name="submit" id="step1_submit" role="menuitem" >Next</button>
                 </li>
         </ul>
    </div>
@@ -127,16 +173,5 @@
 @endsection
 
 
-<script>
-function getValue(val){
-   var x = document.getElementById("myDIV");
-  if(val=='1'){
-       x.style.display = "block";
-  }
-  if(val=='0'){
-        x.style.display = "none";
-  }
-    
-}
-</script>
+
 

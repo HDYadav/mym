@@ -1,46 +1,4 @@
 $(document).ready(function() {
-    // alert("Loaded");
-    $("#submit").click(function() {
-        var name = $('[name="fullname"]').val();
-        var token = $('[name="_token"]').val();
-
-        $.ajax({
-            type: "post",
-            url: "{{ url('/step2') }}",
-            data: { name: name, _token: token },
-            dataType: "json", // let's set the expected response format
-            success: function(data) {
-                //console.log(data);
-                $("#success_message")
-                    .fadeIn()
-                    .html(data.message);
-            },
-            error: function(err) {
-                if (err.status == 422) {
-                    // when status code is 422, it's a validation issue
-                    console.log(err.responseJSON);
-                    $("#success_message")
-                        .fadeIn()
-                        .html(err.responseJSON.message);
-
-                    // you can loop through the errors object and show it to the user
-                    console.warn(err.responseJSON.errors);
-                    // display errors on each form field
-                    $.each(err.responseJSON.errors, function(i, error) {
-                        var el = $(document).find('[name="' + i + '"]');
-                        el.after(
-                            $(
-                                '<span style="color: red;">' +
-                                    error[0] +
-                                    "</span>"
-                            )
-                        );
-                    });
-                }
-            }
-        });
-    });
-
     $("#pincode").keyup(function() {
         $("#city").val("");
         $("#state").val("");
@@ -48,25 +6,20 @@ $(document).ready(function() {
         var el = $(this);
         var token = $('[name="_token"]').val();
         var pincode = $("#pincode").val();
-        // alert("Work " + el.val());
         if (el.val().length === 6) {
             $("#place")
                 .children("option:not(:first)")
                 .remove();
-
             $.ajax({
                 type: "post",
                 url: "/getpincode",
                 data: { pincode: pincode, _token: token },
                 dataType: "json", // let's set the expected response format
                 success: function(data) {
-                    //var obj = jQuery.parseJSON(data);
-                    // console.log(data.Result.Name);
                     $("#city").val(data.city);
                     $("#state").val(data.state);
                     $.each(data.Result, function(key, value) {
-                        //console.log(value.Name);
-                        $("#place").append(
+                        $("#post_office").append(
                             '<option value="' +
                                 value.Name +
                                 '">' +
@@ -81,39 +34,119 @@ $(document).ready(function() {
             $("#state").val("");
         }
     });
-    /* step 1 Validations */
-    $("#step1Frm").submit(function(e) {
-        jQuery(".alert-danger").html("");
-        e.preventDefault();
-        jQuery.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="_token"]').attr("content")
-            }
-        });
-        var formData = new FormData(jQuery("#step1Frm")[0]);
 
-        $.ajax({
-            type: "POST",
-            url: "/step2",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                console.log(data.name);
-                if (data.message == "success") {
-                    alert("Sucess");
+    // Official
+
+    $("#off_pincode").keyup(function() {
+        $("#off_city").val("");
+        $("#off_state").val("");
+        $("#off_place").val("");
+        var el = $(this);
+        var token = $('[name="_token"]').val();
+        var pincode = $("#off_pincode").val();
+        if (el.val().length === 6) {
+            $("#off_place")
+                .children("option:not(:first)")
+                .remove();
+            $.ajax({
+                type: "post",
+                url: "/getpincode",
+                data: { pincode: pincode, _token: token },
+                dataType: "json", // let's set the expected response format
+                success: function(data) {
+                    $("#off_city").val(data.city);
+                    $("#off_state").val(data.state);
+                    $.each(data.Result, function(key, value) {
+                        $("#off_post_office").append(
+                            '<option value="' +
+                                value.Name +
+                                '">' +
+                                value.Name +
+                                "</option>"
+                        );
+                    });
                 }
-                jQuery.each(data.errors, function(key, value) {
-                    /* $("#" + key)
-                        .parents(".form-holder")
-                        .find("#error")
-                        .html(value); */
-
-                    jQuery(".alert-danger").show();
-                    jQuery(".alert-danger").append("<p>" + value + "</p>");
-                });
-            }
-        });
+            });
+        } else {
+            $("#off_city").val("");
+            $("#off_state").val("");
+        }
     });
-    /* step 1 Validations end*/
+
+    /* parse Validation */
+
+    $("#step1Frm").parsley();
+
+    $("#step1Frm").on("submit", function (event) {
+        
+        event.preventDefault();
+        if (
+            $("#step1Frm")
+                .parsley()
+        ) {
+            $.ajax({
+                url: "/profile_create",
+                method: "POST",
+                data: $('#step1Frm').serialize(),
+                dataType: "json",
+                beforeSend: function() {
+                    $("#submit").attr("disabled", "disabled");
+                    $("#submit").val("Next...");
+                    $("#submit").attr("disabled", false);
+                },
+                success: function(data) {
+                   // $("#step1Frm")[0].reset();
+                    $("#step1Frm")
+                        .parsley()
+                        .reset();
+                    $("#submit").attr("disabled", false);
+                    $("#submit").val("Submit");
+                   if (data.mstatus == "Yes") {
+                       $(location).attr("href", "/family_information");
+                   }
+                    if (data.mstatus == "No") {                    
+                        $(location).attr("href", "/step3");
+                    } 
+                }
+            });
+        }
+    });
+    /* End parse validation */
+
+     /* FAMILY INFORMATION */
+
+    $("#step2Frm").parsley();
+
+    $("#step2Frm").on("submit", function(event) {
+         
+        event.preventDefault();
+        if (
+            $("#step2Frm")
+                .parsley()
+                .isValid()
+        ) {
+            $.ajax({
+                url: "/family_information_create",
+                method: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                beforeSend: function() {
+                    $("#submit").attr("disabled", "disabled");
+                    $("#submit").val("Next...");
+                    $("#submit").attr("disabled", false);
+                },
+                success: function (data) { 
+                    alert(data.message);
+                    return false;
+                    $("#step2Frm")
+                        .parsley()
+                        .reset();
+                    $("#submit").attr("disabled", false);
+                    $("#submit").val("Submit");
+                    $(location).attr("href", "/step3"); 
+                }
+            });
+        }
+    });
+    /* End parse validation */
 });

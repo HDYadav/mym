@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed36faf0f3d54f085c20c6eb880d9cb1",
+    "content-hash": "38642b85ad5d3e1b56909841a78b8d45",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -103,6 +103,69 @@
                 "math"
             ],
             "time": "2020-04-15T15:59:35+00:00"
+        },
+        {
+            "name": "browner12/helpers",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/browner12/helpers.git",
+                "reference": "b34b7f8f2d3d24703764bf4d5ce7dbff763f08d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/browner12/helpers/zipball/b34b7f8f2d3d24703764bf4d5ce7dbff763f08d8",
+                "reference": "b34b7f8f2d3d24703764bf4d5ce7dbff763f08d8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^6.0|^7.0",
+                "illuminate/contracts": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "suggest": {
+                "moneyphp/money": "Money value object."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "browner12\\helpers\\HelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "browner12\\helpers\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Brown",
+                    "email": "browner12@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "generic helpers",
+            "homepage": "https://github.com/browner12/helpers",
+            "keywords": [
+                "browner12",
+                "helpers"
+            ],
+            "time": "2020-03-03T16:33:22+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2179,6 +2242,82 @@
                 "uuid"
             ],
             "time": "2020-07-28T16:51:01+00:00"
+        },
+        {
+            "name": "spatie/laravel-activitylog",
+            "version": "3.14.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-activitylog.git",
+                "reference": "f1261c461ee4a92fd1e72012b516147ba28a91bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/f1261c461ee4a92fd1e72012b516147ba28a91bb",
+                "reference": "f1261c461ee4a92fd1e72012b516147ba28a91bb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^6.0|^7.0",
+                "illuminate/database": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "orchestra/testbench": "^4.0|^5.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Activitylog\\ActivitylogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Activitylog\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A very simple activity logger to monitor the users of your website or application",
+            "homepage": "https://github.com/spatie/activitylog",
+            "keywords": [
+                "activity",
+                "laravel",
+                "log",
+                "spatie",
+                "user"
+            ],
+            "time": "2020-05-19T14:31:33+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -5369,6 +5508,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {

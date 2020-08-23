@@ -35,6 +35,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UserController');
     Route::resource('products', 'ProductController');
     Route::get('step1', 'Profile\ProfileController@step1')->name('step1');
-    Route::post('step2', 'Profile\ProfileController@step2')->name('step2');
+    Route::post('profile_create', 'Profile\ProfileController@profile_create')->name('profile_create');
+    Route::get('family_information', 'Profile\ProfileController@family_information')->name('family_information');
+    Route::post('family_information_create', 'Profile\ProfileController@family_information_create')->name('family_information_create');
+
+    Route::get('step3', 'Profile\ProfileController@step3')->name('step3');
+
+
     Route::post('getpincode', 'Profile\ProfileController@getpincode')->name('getpincode');
 });

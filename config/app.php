@@ -139,7 +139,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        'Helper' => App\Helpers\Helper::class,
+        
         Spatie\Permission\PermissionServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
@@ -230,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Helper'   => App\Helpers\Helper::class
     ],
 
 ];

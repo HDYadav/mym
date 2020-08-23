@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>User Kyc</title>
+		<title> @yield('title')</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="colorlib.com">
 
@@ -16,9 +16,22 @@
 		<link rel="stylesheet" href="{{ asset('profile/css/style.css') }}">
 
 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<!-- <script src="{{ asset('profile/js/jquery-3.3.1.min.js') }}"></script> 
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	 <script src="http://parsleyjs.org/dist/parsley.js"></script>
+-->
+
+	  <script src="{{ asset('profile/js/jquery.min.js') }}"></script>  
+ 
+<link rel="stylesheet" href="{{ asset('profile/css/bootstrap.min.css') }}">
+<script src="{{ asset('profile/js/bootstrap.min.js') }}"></script> 
+ <script src="{{ asset('profile/dist/parsley.js') }}"></script> 
+ 
+  
 
 
 
@@ -28,7 +41,7 @@
            @yield('content')
 		</div>
 
-		<script src="{{ asset('profile/js/jquery-3.3.1.min.js') }}"></script>
+	
 		
 		<!-- JQUERY STEP -->
 		<script src="{{ asset('profile/js/jquery.steps.js') }}"></script>
