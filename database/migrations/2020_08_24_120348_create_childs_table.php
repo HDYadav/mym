@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChiledDetailsTable extends Migration
+class CreateChildsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateChiledDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('chiled_details', function (Blueprint $table) {
+        Schema::create('childs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->integer('family_informations_id');
             $table->integer('child');
-            $table->string('prefix',10);
+            $table->string('prefix', 10);
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
@@ -36,6 +36,6 @@ class CreateChiledDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chiled_details');
+        Schema::dropIfExists('childs');
     }
 }

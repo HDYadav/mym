@@ -43,8 +43,7 @@ class ProfileController extends BaseController
             $input=$request;
             $profile=  new ProfileService();             
             $validator = \Validator::make($request->all(),$profile->rules(),$profile->messages()); 
-            if($validator->fails()) {  
-           // Log::info('', ['error' => Helper::failed($exe->getMessage())]);              
+            if($validator->fails()) {                         
                 throw new \Exception(json_encode($validator->errors()->all()));                 
             }   
             $res=$profile->create_profile_step1($request);
@@ -75,7 +74,7 @@ class ProfileController extends BaseController
     public function family_information_create(Request $request)
     {
         try 
-        {
+        {   
             DB::beginTransaction();
             $input=$request;
             $profile=  new ProfileService();             
@@ -83,26 +82,22 @@ class ProfileController extends BaseController
             if($validator->fails()) { 
                 throw new \Exception(json_encode($validator->errors()->all()));                 
             }   
-            $rt= $profile->create_family_info($request);
+            $rt= $profile->create_family_info($request); 
             DB::commit();             
             return response()->json($rt);             
-        }catch (\Exception $exe) {   
-                     
+        }catch (\Exception $exe) { 
              DB::rollBack();
-             Log::error('ProfileController__family_information_create()__LineNo_75', ['error' => Helper::failed($exe->getMessage())]);
+             Log::error(app_path().'/Http/Controllers/family_information_create__Line_No_75', ['error' => Helper::failed($exe->getMessage())]);
              return response()->json(['errors'=>Helper::failed($exe->getMessage())]);  
         }
        
     }
   
-
-
     public function step3()
     {
         return view('profile.step3');
     }
 
-    
 
     public function getpincode(Request $request)
     {

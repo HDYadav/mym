@@ -94,7 +94,9 @@ $(document).ready(function() {
                     $("#submit").val("Next...");
                     $("#submit").attr("disabled", false);
                 },
-                success: function(data) {
+                success: function (data) {
+                    //alert(data.errors.status);
+                    
                    // $("#step1Frm")[0].reset();
                     $("#step1Frm")
                         .parsley()
