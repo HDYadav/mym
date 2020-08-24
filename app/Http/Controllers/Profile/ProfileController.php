@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\Helper;
 use Spatie\Activitylog\Models\Activity;
-use Illuminate\Support\Facades\DB;
+  use Illuminate\Support\Facades\DB;  
+use App\Model\UserProfiles;
 
 
 use Illuminate\Support\Facades\Log;
@@ -24,8 +25,11 @@ class ProfileController extends BaseController
         // abort(404); 
        //  Log::info('This is Step 1.', ['id' => auth()->user()->id]);
        //$deleted = DB::delete('delete from user_profiles');
- 
-        return view('profile.step1');
+       // $profile = UserProfiles::findOrFail(auth()->user()->id); 
+       
+      //  return view('profile.step1', compact('profile'));
+       return view('profile.step1');
+
     } 
   
     /**

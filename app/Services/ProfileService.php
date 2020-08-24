@@ -108,9 +108,7 @@ class ProfileService
             $input = $request->all();
             $input['user_id'] =auth()->user()->id;
             $id=FamilyInformations::create($input)->id;
-
-            $totalChile=$input['total_child'];
-                 
+            $totalChile=$input['total_child'];                 
             for ($i=0;$i<$totalChile;$i++) {
                 $child['user_id']=auth()->user()->id;
                 $child['family_informations_id']=$id;
@@ -122,45 +120,14 @@ class ProfileService
                 $child['dob']=$input['dob'][$i];
                 $child['area_of_interest']=$input['area_of_interest'][$i];
                 $child['achievement']=$input['achievement'][$i];
-                DB::table('childs')->insert($child);
+                DB::table('childs')->insert($child); 
+            }  
 
-            } 
-
-
-            return ['status'=>'true','message'=>'sucessfully'];             
+          return ['status'=>'true','message'=>'sucessfully'];             
         } catch (\Exception $exe) {
             return ['status'=>'false','message'=>$exe->getMessage()];
         }
     }
 
-    public function create_chiled_info($request, $id)
-    {
-        try {
-            $input = $request->all();
-            // $input['user_id'] =auth()->user()->id;
-            $totalChile=$input['total_child'];
-                 
-            for($i=0;$i<$totalChile;$i++) {
-                $child['user_id']=auth()->user()->id;
-                $child['family_informations_id']=$id;
-                $child['child']=$i;
-                $child['prefix']=$input['prefix'][$i];
-                $child['first_name']=$input['first_name'][$i];
-                $child['middle_name']=$input['middle_name'][$i];
-                $child['last_name']=$input['last_name'][$i];
-                $child['dob']=$input['dob'][$i];
-                $child['area_of_interest']=$input['area_of_interest'][$i];
-                $child['achievement']=$input['achievement'][$i];
-            }
- 
-            return DB::table('childs')->insert($child);
- 
-
-             
-            // Child::create($input);
-            return ['status'=>'true','message'=>'sucessfully'];
-        } catch (\Exception $exe) {
-            return ['status'=>'false','message'=>$exe->getMessage()];
-        }
-    }
+    
 }

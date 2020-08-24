@@ -95,9 +95,7 @@ $(document).ready(function() {
                     $("#submit").attr("disabled", false);
                 },
                 success: function (data) {
-                    //alert(data.errors.status);
-                    
-                   // $("#step1Frm")[0].reset();
+                    //alert(data.errors.status); 
                     $("#step1Frm")
                         .parsley()
                         .reset();
@@ -138,8 +136,7 @@ $(document).ready(function() {
                     $("#submit").attr("disabled", false);
                 },
                 success: function (data) { 
-                    alert(data.message);
-                    return false;
+                    
                     $("#step2Frm")
                         .parsley()
                         .reset();
