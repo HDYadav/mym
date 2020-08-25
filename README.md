@@ -22,4 +22,14 @@
 - [Hit the command -> php artisan migrate ]
 
 
+## TODO
+1- DBNAME is not proper
+2- In user_profiles table created_by and update_by column is missing
+3- Create a utility call Logger
+4- What is use of $input extra varriable in app/Http/Controllers/Profile/ProfileController.php-> profile_create function
+5- app/Http/Controllers/Profile/ProfileController.php->getpincode URL should come from the config
+6- why you have added use Illuminate\Support\Facades\DB; in the controller. 
+7- status coluon is missing in user_profiles table
+
+
 

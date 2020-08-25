@@ -17,7 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/kyc', 'Kyc\IndexController@kycTest');
 //Route::get('/profile1', 'Profile\ProfileController@index');
 
@@ -29,7 +28,7 @@ Route::get('/help', function () {
     return human_file_size(1024*1024);
 });
 */
-    
+
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', 'RoleController');
     Route::resource('users', 'UserController');
@@ -41,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('step3', 'Profile\ProfileController@step3')->name('step3');
 
-
     Route::post('getpincode', 'Profile\ProfileController@getpincode')->name('getpincode');
+
+    Route::get('user_profile', 'Profile\ProfileController@getProFileDetails')->name('getProFileDetails');
 });
